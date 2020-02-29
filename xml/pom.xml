@@ -76,4 +76,22 @@
     </dependency>
   </dependencies>
   
+  <build>
+    <plugins>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>prepare-agent</id>
+          <goals>
+            <goal>prepare-agent</goal>
+          </goals>
+          <configuration>
+            <inclBootstrapClasses>true</inclBootstrapClasses>
+          </configuration>
+        </execution>
+      </executions>
+    </plugins>
+  </build>
+  
 </project>
