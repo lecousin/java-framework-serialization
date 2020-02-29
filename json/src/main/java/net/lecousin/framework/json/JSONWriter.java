@@ -28,14 +28,12 @@ public class JSONWriter {
 	
 	/** Constructor. */
 	public JSONWriter(ICharacterStream.Writable.Buffered output, boolean pretty) {
-		this.output = output;
 		this.pretty = pretty;
 		writer = new CharacterStreamWritePool(output);
 	}
 	
 	private boolean pretty;
 	private int indent = 0;
-	private ICharacterStream.Writable.Buffered output;
 	private CharacterStreamWritePool writer;
 	private LinkedList<Boolean> first = new LinkedList<>();
 	
@@ -90,9 +88,7 @@ public class JSONWriter {
 
 	/** Flush any pending output. */
 	public IAsync<IOException> flush() {
-		Async<IOException> sp = new Async<>();
-		writer.flush().onDone(() -> output.flush().onDone(sp), sp);
-		return sp;
+		return writer.flush();
 	}
 	
 	private IAsync<IOException> indent(IAsync<IOException> last) {
