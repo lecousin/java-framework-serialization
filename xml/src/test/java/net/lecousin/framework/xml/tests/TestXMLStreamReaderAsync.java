@@ -89,7 +89,8 @@ public class TestXMLStreamReaderAsync extends TestXMLStreamEventsAsync {
 		do {
 			xml.next().blockThrow(0);
 		} while (!Event.Type.CDATA.equals(xml.event.type));
-		Assert.assertEquals(2012, xml.event.text.length());
+		int expected = xml.event.text.indexOf("\r\n") >= 0 ? 2012 : 2006;
+		Assert.assertEquals(expected, xml.event.text.length());
 
 		xml = parse("xml-test-suite/mine/longText.xml");
 		xml.start().blockThrow(0);
@@ -119,11 +120,13 @@ public class TestXMLStreamReaderAsync extends TestXMLStreamEventsAsync {
 		do {
 			xml.next().blockThrow(0);
 		} while (!Event.Type.CDATA.equals(xml.event.type));
-		Assert.assertEquals(2012, xml.event.text.length());
+		expected = xml.event.text.indexOf("\r\n") >= 0 ? 2012 : 2006;
+		Assert.assertEquals(expected, xml.event.text.length());
 		do {
 			xml.next().blockThrow(0);
 		} while (!Event.Type.COMMENT.equals(xml.event.type));
-		Assert.assertEquals(2015, xml.event.text.length());
+		expected = xml.event.text.indexOf("\r\n") >= 0 ? 2015 : 2009;
+		Assert.assertEquals(expected, xml.event.text.length());
 
 		xml = parse("xml-test-suite/mine/longText2.xml");
 		xml.start().blockThrow(0);
