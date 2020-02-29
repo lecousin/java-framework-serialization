@@ -61,14 +61,14 @@ public class XMLStreamReader extends XMLStreamEventsSync {
 		IO.Readable.Buffered io, int charactersBufferSize, int maxBuffers, boolean addPositionInErrors
 	) {
 		AsyncSupplier<XMLStreamReader, Exception> result = new AsyncSupplier<>();
-		Task.cpu("Start reading XML " + io.getSourceDescription(), io.getPriority(), () -> {
+		Task.cpu("Start reading XML " + io.getSourceDescription(), io.getPriority(), task -> {
 			XMLStreamReader reader = new XMLStreamReader(io, charactersBufferSize, maxBuffers);
 			try {
 				Starter start = new Starter(io, reader.defaultEncoding, reader.charactersBuffersSize,
 					reader. maxBuffers, addPositionInErrors);
 				reader.stream = start.start();
 				reader.stream.canStartReading().thenStart(
-				Task.cpu("Start reading XML " + io.getSourceDescription(), io.getPriority(), () -> {
+				Task.cpu("Start reading XML " + io.getSourceDescription(), io.getPriority(), task2 -> {
 					try {
 						reader.next();
 						result.unblockSuccess(reader);

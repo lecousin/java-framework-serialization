@@ -3,8 +3,6 @@ package net.lecousin.framework.xml.serialization;
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ import net.lecousin.framework.concurrent.threads.Task;
 import net.lecousin.framework.concurrent.threads.Task.Priority;
 import net.lecousin.framework.concurrent.util.AsyncConsumer;
 import net.lecousin.framework.encoding.Base64Encoding;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.FileIO;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.IO.Seekable.SeekType;
@@ -42,7 +41,6 @@ import net.lecousin.framework.io.serialization.TypeDefinition;
 import net.lecousin.framework.io.serialization.rules.SerializationRule;
 import net.lecousin.framework.math.IntegerUnit;
 import net.lecousin.framework.text.CharArrayStringBuffer;
-import net.lecousin.framework.util.ClassUtil;
 import net.lecousin.framework.util.Pair;
 import net.lecousin.framework.xml.XMLStreamEvents;
 import net.lecousin.framework.xml.XMLStreamEvents.ElementContext;
@@ -282,7 +280,7 @@ public class XMLDeserializer extends AbstractDeserializer {
 			return result;
 		}
 		AsyncSupplier<Pair<Object, Boolean>, SerializationException> result = new AsyncSupplier<>();
-		read.thenStart(Task.cpu(taskDescription, priority, () -> {
+		read.thenStart(Task.cpu(taskDescription, priority, t -> {
 			if (!read.getResult().booleanValue()) {
 				colValueContext.removeFirst();
 				result.unblockSuccess(new Pair<>(null, Boolean.FALSE));
@@ -511,7 +509,7 @@ public class XMLDeserializer extends AbstractDeserializer {
 					return result;
 				}
 			} else {
-				next.thenStart(Task.cpu(taskDescription, priority, () -> {
+				next.thenStart(Task.cpu(taskDescription, priority, t -> {
 					if (!next.getResult().booleanValue()) {
 						ctx.endOfAttributes = true;
 						result.unblockSuccess(new Pair<>(null, Boolean.FALSE));
@@ -577,7 +575,7 @@ public class XMLDeserializer extends AbstractDeserializer {
 			return new AsyncSupplier<>(null, null);
 		IAsync<Exception> next = input.next();
 		AsyncSupplier<IO.Readable, SerializationException> result = new AsyncSupplier<>();
-		next.thenStart(Task.cpu(taskDescription, priority, () -> {
+		next.thenStart(Task.cpu(taskDescription, priority, t -> {
 			if (Type.TEXT.equals(input.event.type)) {
 				// it may be a reference
 				String ref = input.event.text.asString();
@@ -612,7 +610,7 @@ public class XMLDeserializer extends AbstractDeserializer {
 			else readBase64(decoder, io, result);
 			return null;
 		}
-		next.thenStart(Task.cpu(taskDescription, priority, () -> readBase64(decoder, io, result)), result, xmlErrorConverter);
+		next.thenStart(Task.cpu(taskDescription, priority, t -> readBase64(decoder, io, result)), result, xmlErrorConverter);
 		return null;
 	}
 	
@@ -631,7 +629,7 @@ public class XMLDeserializer extends AbstractDeserializer {
 		}
 		if (Type.START_ELEMENT.equals(input.event.type)) {
 			input.closeElement().thenStart(Task.cpu(taskDescription, priority,
-				() -> readNextBase64(decoder, io, result)), result, xmlErrorConverter);
+				t -> readNextBase64(decoder, io, result)), result, xmlErrorConverter);
 			return null;
 		}
 		if (Type.END_ELEMENT.equals(input.event.type)) {
@@ -647,7 +645,7 @@ public class XMLDeserializer extends AbstractDeserializer {
 		CharArray[] buffers, int index
 	) {
 		IAsync<IOException> decode = decoder.consume(new BytesFromIso8859CharArray(buffers[index], true));
-		decode.thenStart(taskDescription, priority, () -> {
+		decode.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 			if (decode.hasError())
 				result.error(new SerializationException("Error decoding base 64", decode.getError()));
 			else if (index == buffers.length - 1)

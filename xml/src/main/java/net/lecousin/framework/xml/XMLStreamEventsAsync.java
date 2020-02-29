@@ -341,14 +341,14 @@ public abstract class XMLStreamEventsAsync extends XMLStreamEvents {
 		protected Async<Exception> sp;
 		
 		@Override
-		public Void execute() {
+		public Void execute(Task<Void, NoException> taskContext) {
 			IAsync<Exception> next = next();
 			if (next.isDone()) {
 				if (next.hasError()) sp.error(next.getError());
 				else onNext();
 				return null;
 			}
-			next.thenStart(TASK_DESCR, XMLStreamEventsAsync.this.getPriority(), () -> {
+			next.thenStart(TASK_DESCR, XMLStreamEventsAsync.this.getPriority(), (Task<Void, NoException> t) -> {
 				onNext();
 				return null;
 			}, sp);

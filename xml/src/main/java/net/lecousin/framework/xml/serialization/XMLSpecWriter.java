@@ -13,6 +13,8 @@ import java.util.function.Function;
 
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.buffering.SimpleBufferedWritable;
 import net.lecousin.framework.io.serialization.AbstractSerializationSpecWriter;
@@ -262,7 +264,7 @@ public class XMLSpecWriter extends AbstractSerializationSpecWriter {
 			return new Async<>(output.closeElement(), ioErrorConverter); // collection
 		}
 		Async<SerializationException> sp = new Async<>();
-		val.thenStart(taskDescription, priority, () -> {
+		val.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 			output.closeElement(); // sequence
 			output.closeElement(); // complexType
 			output.closeElement().onDone(sp, ioErrorConverter); // collection
@@ -320,7 +322,7 @@ public class XMLSpecWriter extends AbstractSerializationSpecWriter {
 			return new Async<>(output.closeElement(), ioErrorConverter); // value
 		}
 		Async<SerializationException> sp = new Async<>();
-		type.thenStart(taskDescription, priority, () -> {
+		type.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 			typesContext.removeFirst();
 			if (ctx.sequenceStarted) output.closeElement();
 			output.closeElement(); // complexType

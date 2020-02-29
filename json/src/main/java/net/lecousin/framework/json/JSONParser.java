@@ -54,7 +54,7 @@ public class JSONParser implements Executable<Object, Exception> {
 	private Buffered io;
 	
 	@Override
-	public Object execute() throws Exception {
+	public Object execute(Task<Object, Exception> taskContext) throws Exception {
 		return read(CTX_JSON);
 	}
 	

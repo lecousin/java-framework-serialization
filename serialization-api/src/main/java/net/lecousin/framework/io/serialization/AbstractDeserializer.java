@@ -424,7 +424,7 @@ public abstract class AbstractDeserializer implements Deserializer {
 							result.unblockSuccess(toArray(context));
 						return;
 					}
-					Task.cpu(taskDescription, priority, () -> {
+					Task.cpu(taskDescription, priority, task -> {
 						Object element = p.getValue1();
 						if (element != null &&
 							Collection.class.isAssignableFrom(context.getCollectionType().getBase()) &&
@@ -816,7 +816,7 @@ public abstract class AbstractDeserializer implements Deserializer {
 						result.unblockSuccess(context.getInstance());
 						return;
 					}
-					Task.cpu(taskDescription, priority, () -> {
+					Task.cpu(taskDescription, priority, task -> {
 						Attribute a = checkNextAttributeName(n, context, path, result);
 						if (a == null) return null;
 						IAsync<SerializationException> val =

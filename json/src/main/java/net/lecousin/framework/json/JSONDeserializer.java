@@ -214,7 +214,7 @@ public class JSONDeserializer extends AbstractDeserializer {
 			else if (!EventType.START_OBJECT.equals(input.event))
 				result.error(JSONDeserializationException.unexpectedValue("object"));
 			else
-				Task.cpu(taskDescription, priority, () -> instantiate(context, type, rules, result)).start();
+				Task.cpu(taskDescription, priority, t -> instantiate(context, type, rules, result)).start();
 		}, result, JSONDeserializer::convertError);
 		return result;
 	}

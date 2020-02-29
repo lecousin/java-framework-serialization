@@ -9,8 +9,10 @@ import java.util.Map;
 
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
 import net.lecousin.framework.concurrent.threads.Task.Priority;
 import net.lecousin.framework.concurrent.threads.Threading;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.IOFromInputStream;
 import net.lecousin.framework.io.buffering.ByteArrayIO;
@@ -231,7 +233,7 @@ public abstract class AbstractSerializer implements Serializer {
 				return;
 			}
 			int nextIndex = attributeIndex + 1;
-			sp.thenStart(taskDescription, priority, () -> {
+			sp.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 				if (sp.hasError()) result.error(sp.getError());
 				else if (sp.isCancelled()) result.cancel(sp.getCancelEvent());
 				else serializeAttribute(attributes, nextIndex, context, containerPath, rules, result);
@@ -385,7 +387,7 @@ public abstract class AbstractSerializer implements Serializer {
 				elementIndex++;
 				continue;
 			}
-			next.thenStart(taskDescription, priority, () -> {
+			next.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 				if (next.hasError()) result.error(next.getError());
 				else serializeCollectionElement(context, it, currentIndex + 1, colPath, rules, result);
 				return null;

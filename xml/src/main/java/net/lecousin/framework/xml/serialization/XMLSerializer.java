@@ -14,6 +14,7 @@ import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
 import net.lecousin.framework.concurrent.threads.Task;
 import net.lecousin.framework.encoding.Base64Encoding;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.buffering.SimpleBufferedWritable;
 import net.lecousin.framework.io.data.ByteArray;
@@ -311,7 +312,7 @@ public class XMLSerializer extends AbstractSerializer {
 			}
 			return;
 		}
-		value.thenStart(taskDescription, priority, () -> {
+		value.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 			output.closeElement();
 			serializeCollectionAttributeElement(context, it, elementIndex + 1, colPath, rules, result);
 			return null;

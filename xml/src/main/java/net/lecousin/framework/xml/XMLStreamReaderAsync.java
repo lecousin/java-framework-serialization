@@ -7,10 +7,12 @@ import java.util.LinkedList;
 
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
 import net.lecousin.framework.concurrent.threads.Task.Priority;
 import net.lecousin.framework.encoding.number.DecimalNumber;
 import net.lecousin.framework.encoding.number.HexadecimalNumber;
 import net.lecousin.framework.encoding.number.NumberEncoding;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.buffering.PreBufferedReadable;
 import net.lecousin.framework.locale.LocalizableString;
@@ -57,7 +59,7 @@ public class XMLStreamReaderAsync extends XMLStreamEventsAsync {
 	@Override
 	public IAsync<Exception> start() {
 		Async<Exception> sp = new Async<>();
-		io.canStartReading().thenStart("Start parsing XML", io.getPriority(), () -> {
+		io.canStartReading().thenStart("Start parsing XML", io.getPriority(), (Task<Void, NoException> t) -> {
 			try {
 				Starter start = new Starter(io, defaultEncoding, charactersBuffersSize, maxBuffers, false);
 				stream = start.start();

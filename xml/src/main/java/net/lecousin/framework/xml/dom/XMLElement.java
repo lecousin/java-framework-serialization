@@ -11,6 +11,8 @@ import java.util.Map;
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.AsyncSupplier;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.text.IString;
 import net.lecousin.framework.util.ObjectUtil;
 import net.lecousin.framework.util.Pair;
@@ -606,7 +608,7 @@ public class XMLElement extends XMLNode implements Element {
 						break;
 					}
 					Async<Exception> sp = new Async<>();
-					child.thenStart("Parsing XML to DOM", stream.getPriority(), () -> {
+					child.thenStart("Parsing XML to DOM", stream.getPriority(), (Task<Void, NoException> t) -> {
 						appendChild(child.getResult());
 						parseContent(stream, null).onDone(sp);
 						return null;
@@ -637,7 +639,7 @@ public class XMLElement extends XMLNode implements Element {
 			}
 			// blocked
 			Async<Exception> sp = new Async<>();
-			next.thenStart("Parsing XML to DOM", stream.getPriority(), () -> {
+			next.thenStart("Parsing XML to DOM", stream.getPriority(), (Task<Void, NoException> t) -> {
 				parseContent(stream, next).onDone(sp);
 				return null;
 			}, sp);

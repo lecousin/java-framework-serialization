@@ -10,6 +10,8 @@ import java.util.Map;
 
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.text.BufferedWritableCharacterStream;
 import net.lecousin.framework.io.text.CharacterStreamWritePool;
@@ -147,15 +149,7 @@ public class XMLWriter {
 	public IAsync<IOException> end() {
 		while (!context.isEmpty())
 			closeElement();
-		IAsync<IOException> write = writer.flush();
-		if (!write.isDone()) {
-			Async<IOException> sp = new Async<>();
-			write.onDone(() -> output.flush().onDone(sp), sp);
-			return sp;
-		}
-		if (write.hasError())
-			return write;
-		return output.flush();
+		return writer.flush();
 	}
 	
 	protected void indent() {
@@ -369,7 +363,7 @@ public class XMLWriter {
 			}
 			Async<IOException> result = new Async<>();
 			int nextIndex = attrIndex + 1;
-			sp.thenStart(DOM_TASK_DESCRIPTION, output.getPriority(), () -> {
+			sp.thenStart(DOM_TASK_DESCRIPTION, output.getPriority(), (Task<Void, NoException> t) -> {
 				if (nextIndex == attrs.getLength()) {
 					writeChildren(element).onDone(result);
 					return null;
@@ -417,7 +411,7 @@ public class XMLWriter {
 			}
 			Async<IOException> result = new Async<>();
 			int nextIndex = childIndex + 1;
-			sp.thenStart(DOM_TASK_DESCRIPTION, output.getPriority(), () -> {
+			sp.thenStart(DOM_TASK_DESCRIPTION, output.getPriority(), (Task<Void, NoException> t) -> {
 				if (nextIndex == children.getLength()) {
 					closeElement().onDone(result);
 					return null;

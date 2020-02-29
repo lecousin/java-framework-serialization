@@ -8,7 +8,9 @@ import java.util.Map;
 
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
 import net.lecousin.framework.concurrent.threads.Task.Priority;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.serialization.SerializationClass.Attribute;
 import net.lecousin.framework.io.serialization.SerializationContext.AttributeContext;
@@ -35,7 +37,7 @@ public abstract class AbstractSerializationSpecWriter implements SerializationSp
 		priority = output.getPriority();
 		IAsync<SerializationException> init = initializeSpecWriter(output);
 		Async<SerializationException> result = new Async<>();
-		init.thenStart(taskDescription, priority, () -> {
+		init.thenStart(taskDescription, priority, (Task<Void, NoException> t) -> {
 			IAsync<SerializationException> sp;
 			if (type != null)
 				sp = specifyValue(null, new TypeDefinition(type), rules);

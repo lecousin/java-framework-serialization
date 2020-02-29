@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.AsyncSupplier;
 import net.lecousin.framework.concurrent.async.IAsync;
+import net.lecousin.framework.concurrent.threads.Task;
+import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.xml.XMLException;
 import net.lecousin.framework.xml.XMLStreamEventsAsync;
 import net.lecousin.framework.xml.XMLStreamEventsSync;
@@ -169,7 +171,7 @@ public class XMLDocument extends XMLNode implements Document {
 						doc.root = root.getResult();
 						break;
 					}
-					root.thenStart("Parsing XML root element", stream.getPriority(), () -> {
+					root.thenStart("Parsing XML root element", stream.getPriority(), (Task<Void, NoException> t) -> {
 						doc.root = root.getResult();
 						create(doc, stream, result, null);
 						return null;
@@ -179,7 +181,7 @@ public class XMLDocument extends XMLNode implements Document {
 				}
 				continue;
 			}
-			next.thenStart("Parsing XML", stream.getPriority(), () -> {
+			next.thenStart("Parsing XML", stream.getPriority(), (Task<Void, NoException> t) -> {
 				create(doc, stream, result, next);
 				return null;
 			}, true);
