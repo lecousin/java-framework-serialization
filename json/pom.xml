@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.lecousin.framework</groupId>
@@ -8,7 +10,7 @@
   </parent>
 
   <artifactId>json</artifactId>
-  
+
   <licenses>
     <license>
       <name>Apache 2.0</name>
@@ -16,14 +18,14 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-    
+
   <developers>
     <developer>
-    	<id>lecousin</id>
-    	<name>Guillaume Le Cousin</name>
+      <id>lecousin</id>
+      <name>Guillaume Le Cousin</name>
     </developer>
   </developers>
-  
+
   <scm>
     <connection>scm:git:https://github.com/lecousin/java-framework-serialization.git</connection>
     <developerConnection>scm:git:ssh://git@github.com:lecousin/java-framework-serialization.git</developerConnection>
@@ -45,28 +47,28 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <dependencies>
-  	<dependency>
-  		<groupId>net.lecousin</groupId>
-  		<artifactId>core</artifactId>
-  	</dependency>
+    <dependency>
+      <groupId>net.lecousin</groupId>
+      <artifactId>core</artifactId>
+    </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>serialization-api</artifactId>
       <version>${project.version}</version>
     </dependency>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>net.lecousin</groupId>
-  		<artifactId>core</artifactId>
-  		<type>test-jar</type>
-  		<scope>test</scope>
-  	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.lecousin</groupId>
+      <artifactId>core</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>serialization-api</artifactId>
@@ -74,21 +76,34 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
-  	<!-- To test JSON validation -->
-  	<dependency>
-	    <groupId>com.github.everit-org.json-schema</groupId>
-	    <artifactId>org.everit.json.schema</artifactId>
-	    <version>1.6.1</version>
-	    <scope>test</scope>
-	</dependency>
+    <!-- To test JSON validation -->
+    <dependency>
+      <groupId>com.github.everit-org.json-schema</groupId>
+      <artifactId>org.everit.json.schema</artifactId>
+      <version>1.6.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
-	<repositories>
-		<!-- To test JSON validation -->  
-	    <repository>
-	        <id>jitpack.io</id>
-	        <url>https://jitpack.io</url>
-	    </repository>
-	</repositories>  
-  
+  <repositories>
+    <!-- To test JSON validation -->
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <append>true</append>
+          <dataFile>${basedir}/../target/jacoco.exec</dataFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

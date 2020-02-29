@@ -81,6 +81,15 @@
           </execution>
         </executions>
       </plugin>
+      
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <append>true</append>
+          <dataFile>${basedir}/../target/jacoco.exec</dataFile>
+        </configuration>
+      </plugin>      
     </plugins>
   </build>
 
