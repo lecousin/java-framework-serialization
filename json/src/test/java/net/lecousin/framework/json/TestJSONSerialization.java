@@ -13,10 +13,10 @@ import net.lecousin.framework.io.IOAsInputStream;
 import net.lecousin.framework.io.IOUtil;
 import net.lecousin.framework.io.buffering.SimpleBufferedWritable;
 import net.lecousin.framework.io.buffering.SingleBufferReadable;
-import net.lecousin.framework.io.serialization.Deserializer;
-import net.lecousin.framework.io.serialization.SerializationException;
-import net.lecousin.framework.io.serialization.SerializationSpecWriter;
-import net.lecousin.framework.io.serialization.Serializer;
+import net.lecousin.framework.serialization.Deserializer;
+import net.lecousin.framework.serialization.SerializationException;
+import net.lecousin.framework.serialization.SerializationSpecWriter;
+import net.lecousin.framework.serialization.Serializer;
 import net.lecousin.framework.serialization.test.TestSerialization;
 
 import org.everit.json.schema.Schema;

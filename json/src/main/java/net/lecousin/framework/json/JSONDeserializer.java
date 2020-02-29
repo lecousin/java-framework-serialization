@@ -22,18 +22,18 @@ import net.lecousin.framework.io.buffering.IOInMemoryOrFile;
 import net.lecousin.framework.io.data.ByteArray;
 import net.lecousin.framework.io.data.Bytes;
 import net.lecousin.framework.io.data.BytesFromIso8859String;
-import net.lecousin.framework.io.serialization.AbstractDeserializer;
-import net.lecousin.framework.io.serialization.SerializationClass;
-import net.lecousin.framework.io.serialization.SerializationContext;
-import net.lecousin.framework.io.serialization.SerializationContext.AttributeContext;
-import net.lecousin.framework.io.serialization.SerializationContext.CollectionContext;
-import net.lecousin.framework.io.serialization.SerializationContext.ObjectContext;
-import net.lecousin.framework.io.serialization.SerializationException;
-import net.lecousin.framework.io.serialization.SerializationUtil;
-import net.lecousin.framework.io.serialization.TypeDefinition;
-import net.lecousin.framework.io.serialization.rules.SerializationRule;
 import net.lecousin.framework.json.JSONReaderAsync.EventType;
 import net.lecousin.framework.math.IntegerUnit;
+import net.lecousin.framework.serialization.AbstractDeserializer;
+import net.lecousin.framework.serialization.SerializationClass;
+import net.lecousin.framework.serialization.SerializationContext;
+import net.lecousin.framework.serialization.SerializationException;
+import net.lecousin.framework.serialization.SerializationUtil;
+import net.lecousin.framework.serialization.TypeDefinition;
+import net.lecousin.framework.serialization.SerializationContext.AttributeContext;
+import net.lecousin.framework.serialization.SerializationContext.CollectionContext;
+import net.lecousin.framework.serialization.SerializationContext.ObjectContext;
+import net.lecousin.framework.serialization.rules.SerializationRule;
 import net.lecousin.framework.util.Pair;
 
 /**

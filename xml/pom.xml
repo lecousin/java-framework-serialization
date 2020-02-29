@@ -79,16 +79,17 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
-            <id>prepare-agent</id>
+            <phase>process-classes</phase>
             <goals>
-              <goal>prepare-agent</goal>
+              <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <inclBootstrapClasses>true</inclBootstrapClasses>
+              <includeArtifactIds>serialization-api</includeArtifactIds>
+              <outputDirectory>${project.build.directory}/classes/lib</outputDirectory>
             </configuration>
           </execution>
         </executions>

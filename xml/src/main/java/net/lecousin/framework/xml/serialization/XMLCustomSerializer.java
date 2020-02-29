@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.lecousin.framework.concurrent.async.AsyncSupplier;
 import net.lecousin.framework.concurrent.async.IAsync;
-import net.lecousin.framework.io.serialization.SerializationException;
-import net.lecousin.framework.io.serialization.TypeDefinition;
-import net.lecousin.framework.io.serialization.rules.SerializationRule;
+import net.lecousin.framework.serialization.SerializationException;
+import net.lecousin.framework.serialization.TypeDefinition;
+import net.lecousin.framework.serialization.rules.SerializationRule;
 import net.lecousin.framework.xml.XMLStreamEventsAsync;
 import net.lecousin.framework.xml.XMLWriter;
 

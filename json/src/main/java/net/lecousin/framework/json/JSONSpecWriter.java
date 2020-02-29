@@ -9,14 +9,14 @@ import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.IAsync;
 import net.lecousin.framework.io.IO;
 import net.lecousin.framework.io.buffering.SimpleBufferedWritable;
-import net.lecousin.framework.io.serialization.AbstractSerializationSpecWriter;
-import net.lecousin.framework.io.serialization.SerializationContext;
-import net.lecousin.framework.io.serialization.SerializationContext.AttributeContext;
-import net.lecousin.framework.io.serialization.SerializationContext.CollectionContext;
-import net.lecousin.framework.io.serialization.SerializationContext.ObjectContext;
-import net.lecousin.framework.io.serialization.SerializationException;
-import net.lecousin.framework.io.serialization.TypeDefinition;
-import net.lecousin.framework.io.serialization.rules.SerializationRule;
+import net.lecousin.framework.serialization.AbstractSerializationSpecWriter;
+import net.lecousin.framework.serialization.SerializationContext;
+import net.lecousin.framework.serialization.SerializationException;
+import net.lecousin.framework.serialization.TypeDefinition;
+import net.lecousin.framework.serialization.SerializationContext.AttributeContext;
+import net.lecousin.framework.serialization.SerializationContext.CollectionContext;
+import net.lecousin.framework.serialization.SerializationContext.ObjectContext;
+import net.lecousin.framework.serialization.rules.SerializationRule;
 
 /** Generate JSON schema (http://json-schema.org/). */
 public class JSONSpecWriter extends AbstractSerializationSpecWriter {

@@ -1,6 +1,6 @@
 package net.lecousin.framework.json;
 
-import net.lecousin.framework.io.serialization.SerializationException;
+import net.lecousin.framework.serialization.SerializationException;
 
 /** Error during JSON Deserialization. */
 public class JSONDeserializationException extends SerializationException {
