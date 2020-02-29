@@ -48,8 +48,6 @@
 
   <properties>
     <core.version>0.20.0</core.version>
-    
-    <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
   <dependencyManagement>
