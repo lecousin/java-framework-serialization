@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 
 import net.lecousin.framework.concurrent.async.Async;
 import net.lecousin.framework.concurrent.async.AsyncSupplier;
@@ -14,7 +15,6 @@ import net.lecousin.framework.concurrent.async.IAsync;
 import net.lecousin.framework.concurrent.threads.Task;
 import net.lecousin.framework.exception.NoException;
 import net.lecousin.framework.text.IString;
-import net.lecousin.framework.util.ObjectUtil;
 import net.lecousin.framework.util.Pair;
 import net.lecousin.framework.xml.XMLException;
 import net.lecousin.framework.xml.XMLStreamEvents;
@@ -473,7 +473,7 @@ public class XMLElement extends XMLNode implements Element {
 			if (!(child instanceof XMLElement)) continue;
 			XMLElement e = (XMLElement)child;
 			if (("*".equals(localName) || e.getLocalName().equals(localName)) &&
-				("*".equals(namespaceURI) || ObjectUtil.equalsOrNull(namespaceURI, e.getNamespaceURI())))
+				("*".equals(namespaceURI) || Objects.equals(namespaceURI, e.getNamespaceURI())))
 				result.add(e);
 			e.getElementsByTagName(namespaceURI, localName, result);
 		}

@@ -1,8 +1,7 @@
 package net.lecousin.framework.xml.dom;
 
 import java.util.List;
-
-import net.lecousin.framework.util.ObjectUtil;
+import java.util.Objects;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -54,7 +53,7 @@ public class XMLNamedNodeMap implements NamedNodeMap {
 		if (nodes == null || localName == null)
 			return null;
 		for (XMLNode node : nodes)
-			if (localName.equals(node.getLocalName()) && ObjectUtil.equalsOrNull(namespaceURI, node.getNamespaceURI()))
+			if (localName.equals(node.getLocalName()) && Objects.equals(namespaceURI, node.getNamespaceURI()))
 				return node;
 		return null;
 	}

@@ -2,8 +2,8 @@ package net.lecousin.framework.xml.dom;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import net.lecousin.framework.util.ObjectUtil;
 import net.lecousin.framework.util.Pair;
 
 import org.w3c.dom.NamedNodeMap;
@@ -190,11 +190,11 @@ public abstract class XMLNode implements Node {
 		if (!(arg instanceof XMLNode)) return false;
 		XMLNode n = (XMLNode)arg;
 		if (!getClass().equals(n.getClass())) return false;
-		if (!ObjectUtil.equalsOrNull(getNodeName(), n.getNodeName())) return false;
-		if (!ObjectUtil.equalsOrNull(getNodeValue(), n.getNodeValue())) return false;
-		if (!ObjectUtil.equalsOrNull(getLocalName(), n.getLocalName())) return false;
-		if (!ObjectUtil.equalsOrNull(getPrefix(), n.getPrefix())) return false;
-		if (!ObjectUtil.equalsOrNull(getNamespaceURI(), n.getNamespaceURI())) return false;
+		if (!Objects.equals(getNodeName(), n.getNodeName())) return false;
+		if (!Objects.equals(getNodeValue(), n.getNodeValue())) return false;
+		if (!Objects.equals(getLocalName(), n.getLocalName())) return false;
+		if (!Objects.equals(getPrefix(), n.getPrefix())) return false;
+		if (!Objects.equals(getNamespaceURI(), n.getNamespaceURI())) return false;
 		NamedNodeMap map1 = getAttributes();
 		NamedNodeMap map2 = n.getAttributes();
 		if (map1 == null) return map2 == null;

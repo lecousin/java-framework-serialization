@@ -1,6 +1,6 @@
 package net.lecousin.framework.xml.dom;
 
-import net.lecousin.framework.util.ObjectUtil;
+import java.util.Objects;
 
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
@@ -36,7 +36,7 @@ public class XMLDocumentType extends XMLNode implements DocumentType {
 		if (!super.isEqualNode(arg)) return false;
 		XMLDocumentType o = (XMLDocumentType)arg;
 		if (!name.equals(o.name)) return false;
-		return ObjectUtil.equalsOrNull(publicId, o.publicId) && ObjectUtil.equalsOrNull(systemId, o.systemId);
+		return Objects.equals(publicId, o.publicId) && Objects.equals(systemId, o.systemId);
 	}
 
 	@Override
